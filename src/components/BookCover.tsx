@@ -1,4 +1,4 @@
-import { Brain } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import "@fontsource/dm-mono";
 import "@fontsource/fraunces/300.css";
 import "@fontsource/fraunces/600.css";
@@ -11,7 +11,7 @@ interface BookCoverProps {
   author: string;
 }
 
-export function BookCover({ className = "", backgroundColor, title, author }: BookCoverProps) {
+export function BookCover({ className, backgroundColor, title, author }: BookCoverProps) {
   return (
     <div className={`h-full flex flex-col px-20 ${className}`}>
       {/* Publisher - Top */}
@@ -20,20 +20,20 @@ export function BookCover({ className = "", backgroundColor, title, author }: Bo
           className="text-[150px] tracking-tight text-center"
           style={{ fontFamily: "Fraunces", fontWeight: 600 }}
         >
-          Wisora
+          900s
         </div>
       </div>
 
       {/* Title and Author - Middle */}
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center justify-center h-full">
         <h1 
-          className="text-[360px] leading-[420px] tracking-tight text-center"
+          className="text-[328px] leading-[383px] tracking-tight text-center"
           style={{ fontFamily: "Fraunces", fontWeight: 700 }}
         >
           {title}
         </h1>
         <span 
-          className="text-[360px] leading-[420px] tracking-tight text-center block -mt-24"
+          className="text-[328px] leading-[383px] tracking-tight text-center block"
           style={{ fontFamily: "Fraunces", fontWeight: 300 }}
         >
           by {author}
@@ -46,7 +46,7 @@ export function BookCover({ className = "", backgroundColor, title, author }: Bo
           <div 
             className="w-[165px] h-[165px] rounded-full flex items-center justify-center bg-current"
           >
-            <Brain 
+            <BookOpen 
               size={105} 
               style={{ color: backgroundColor }}
             />
