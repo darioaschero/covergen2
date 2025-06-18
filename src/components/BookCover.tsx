@@ -7,9 +7,11 @@ import "@fontsource/fraunces/700.css";
 interface BookCoverProps {
   className?: string;
   backgroundColor: string;
+  title: string;
+  author: string;
 }
 
-export function BookCover({ className = "", backgroundColor }: BookCoverProps) {
+export function BookCover({ className = "", backgroundColor, title, author }: BookCoverProps) {
   return (
     <div className={`h-full flex flex-col px-20 ${className}`}>
       {/* Publisher - Top */}
@@ -28,13 +30,13 @@ export function BookCover({ className = "", backgroundColor }: BookCoverProps) {
           className="text-[360px] leading-[420px] tracking-tight text-center"
           style={{ fontFamily: "Fraunces", fontWeight: 700 }}
         >
-          Can't Hurt Me
+          {title}
         </h1>
         <span 
           className="text-[360px] leading-[420px] tracking-tight text-center block -mt-24"
           style={{ fontFamily: "Fraunces", fontWeight: 300 }}
         >
-          by David Goggins
+          by {author}
         </span>
       </div>
 
