@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { toPng } from "html-to-image";
 import { colorCombinations } from "@/constants/colors";
@@ -23,11 +23,7 @@ interface Book {
   transcript: string;
 }
 
-function App() {
-  const squareRefs = useRef<Map<string, HTMLDivElement>>(new Map());
-  const [colorIndex, setColorIndex] = useState(0);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [booksJson, setBooksJson] = useState<string>(`[
+const INITIAL_BOOKS_JSON = `[
   {
     "id": "deep-work-2131",
     "title": "Deep Work",
@@ -178,9 +174,31 @@ function App() {
     "visualUrl": "/storage/nexus/visualisation.png",
     "transcript": "/storage/nexus/transcript.json"
   }
-]`);
+]`;
 
-  const books: Book[] = JSON.parse(booksJson);
+function App() {
+  const squareRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const [colorIndex, setColorIndex] = useState(0);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [booksJson, setBooksJson] = useState<string>(INITIAL_BOOKS_JSON);
+  const [lastValidBooks, setLastValidBooks] = useState<Book[]>(JSON.parse(INITIAL_BOOKS_JSON));
+  const [jsonError, setJsonError] = useState<string | null>(null);
+  const [books, setBooks] = useState<Book[]>(lastValidBooks);
+
+  useEffect(() => {
+    try {
+      const parsedBooks = JSON.parse(booksJson);
+      if (Array.isArray(parsedBooks)) {
+        setBooks(parsedBooks);
+        setLastValidBooks(parsedBooks);
+        setJsonError(null);
+      } else {
+        setJsonError("JSON must be an array of books");
+      }
+    } catch (err) {
+      setJsonError("Invalid JSON format");
+    }
+  }, [booksJson]);
 
   const handleExport = async () => {
     try {
@@ -270,7 +288,7 @@ function App() {
   };
 
   return (
-    <div className="w-screen h-screen relative">
+    <div className="w-screen min-h-screen relative">
       {/* Topbar */}
       <div className="fixed top-0 left-0 w-full h-16 flex items-center px-8 bg-white shadow z-10">
         <div className="flex gap-4 items-center w-full">
@@ -282,7 +300,9 @@ function App() {
             onChange={e => setColorIndex(Number(e.target.value))}
             className="w-full flex-grow"
           />
-          <span className="text-sm text-gray-500 w-[72px] text-center tabular-nums">{colorIndex + 1} / {colorCombinations.length}</span>
+          <span className="text-sm text-gray-500 w-[72px] text-center tabular-nums">
+            {colorIndex + 1}-{Math.min(colorIndex + books.length, colorCombinations.length)}
+          </span>
           <Button variant="outline" size="icon" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
             {isSidebarOpen ? <PanelRightClose /> : <PanelRightOpen />}
           </Button>
@@ -296,15 +316,22 @@ function App() {
           isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <Textarea
-          value={booksJson}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setBooksJson(e.target.value)}
-          className="w-full h-full font-mono text-xs whitespace-pre"
-        />
+        <div className="flex flex-col h-full">
+          {jsonError && (
+            <div className="p-2 bg-red-100 text-red-700 text-sm">
+              {jsonError}
+            </div>
+          )}
+          <Textarea
+            value={booksJson}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setBooksJson(e.target.value)}
+            className="w-full flex-1 font-mono text-xs whitespace-pre"
+          />
+        </div>
       </div>
 
       {/* Grid of covers */}
-      <div className={`pt-16 px-8 pb-8 transition-all duration-300 ${isSidebarOpen ? 'pr-[calc(2rem+20rem)]' : 'pr-8'}`}>
+      <div className={`pt-24 px-8 pb-8 transition-all duration-300 ${isSidebarOpen ? 'pr-[calc(2rem+20rem)]' : 'pr-8'}`}>
         <div className="grid grid-cols-[repeat(auto-fit,300px)] gap-8">
           {books.map((book, index) => (
             <div
