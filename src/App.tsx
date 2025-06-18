@@ -6,6 +6,7 @@ import { BookCover } from "@/components/BookCover";
 import { PanelRightOpen, PanelRightClose } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import JSZip from "jszip";
 
 function App() {
   const squareRef = useRef<HTMLDivElement>(null);
@@ -29,7 +30,8 @@ function App() {
       squareRef.current.style.left = '0';
       squareRef.current.style.top = '0';
 
-      const dataUrl = await toPng(squareRef.current, {
+      // Generate HD version (3000x3000)
+      const hdDataUrl = await toPng(squareRef.current, {
         width: 3000,
         height: 3000,
         pixelRatio: 1,
@@ -43,13 +45,40 @@ function App() {
       squareRef.current.style.left = originalLeft;
       squareRef.current.style.top = originalTop;
 
+      // Create thumbnail (400x400) by scaling down the HD image
+      const hdImg = new window.Image();
+      hdImg.src = hdDataUrl;
+      await new Promise(resolve => { hdImg.onload = resolve; });
+      const canvas = document.createElement('canvas');
+      canvas.width = 400;
+      canvas.height = 400;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('Failed to get 2D context for thumbnail canvas');
+      ctx.drawImage(hdImg, 0, 0, 3000, 3000, 0, 0, 400, 400);
+      const thumbnailDataUrl = canvas.toDataURL('image/png');
+
+      // Create zip file
+      const zip = new JSZip();
+      
+      // Convert base64 to blob
+      const hdBlob = await fetch(hdDataUrl).then(res => res.blob());
+      const thumbnailBlob = await fetch(thumbnailDataUrl).then(res => res.blob());
+      
+      // Add files to zip
+      zip.file("CoverHD.png", hdBlob);
+      zip.file("Cover.png", thumbnailBlob);
+      
+      // Generate zip file
+      const zipBlob = await zip.generateAsync({ type: "blob" });
+      
+      // Download zip file
       const link = document.createElement("a");
-      link.download = "square-3000x3000.png";
-      link.href = dataUrl;
+      link.download = "cover.zip";
+      link.href = URL.createObjectURL(zipBlob);
       link.click();
     } catch (err) {
       console.error(err);
-      alert("Failed to export image");
+      alert("Failed to export images");
     }
   };
 
