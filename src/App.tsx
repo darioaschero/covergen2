@@ -210,6 +210,13 @@ function App() {
         const squareRef = squareRefs.current.get(book.id);
         if (!squareRef) continue;
 
+        // Format color combo index as 6 digits
+        const colorComboIndex = (colorIndex + i) % colorCombinations.length;
+        const formattedIndex = (colorComboIndex + 1).toString().padStart(6, '0');
+        
+        // Create filename with new convention: 000001_[slug].png
+        const filename = `${formattedIndex}_${book.id}.png`;
+
         // Create a temporary container for export
         const tempContainer = document.createElement('div');
         tempContainer.style.position = 'absolute';
@@ -279,9 +286,9 @@ function App() {
         const hdBlob = await fetch(hdDataUrl).then(res => res.blob());
         const thumbnailBlob = await fetch(thumbnailDataUrl).then(res => res.blob());
         
-        // Add files to zip
-        hdFolder?.file(`${book.id}.png`, hdBlob);
-        zip.file(`${book.id}.png`, thumbnailBlob);
+        // Add files to zip with new naming convention
+        hdFolder?.file(filename, hdBlob);
+        zip.file(filename, thumbnailBlob);
       }
       
       // Generate zip file
