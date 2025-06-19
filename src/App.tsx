@@ -210,20 +210,25 @@ function App() {
         const squareRef = squareRefs.current.get(book.id);
         if (!squareRef) continue;
 
-        // Store original styles
-        const originalTransform = squareRef.style.transform;
-        const originalPosition = squareRef.style.position;
-        const originalLeft = squareRef.style.left;
-        const originalTop = squareRef.style.top;
+        // Create a temporary container for export
+        const tempContainer = document.createElement('div');
+        tempContainer.style.position = 'absolute';
+        tempContainer.style.left = '-9999px';
+        tempContainer.style.top = '-9999px';
+        document.body.appendChild(tempContainer);
 
-        // Reset positioning for export
-        squareRef.style.transform = 'none';
-        squareRef.style.position = 'relative';
-        squareRef.style.left = '0';
-        squareRef.style.top = '0';
+        // Clone the element for HD version
+        const hdClone = squareRef.cloneNode(true) as HTMLElement;
+        hdClone.style.transform = 'none';
+        hdClone.style.position = 'relative';
+        hdClone.style.left = '0';
+        hdClone.style.top = '0';
+        hdClone.style.width = '3000px';
+        hdClone.style.height = '3000px';
+        tempContainer.appendChild(hdClone);
 
         // Generate HD version (3000x3000)
-        const hdDataUrl = await toPng(squareRef, {
+        const hdDataUrl = await toPng(hdClone, {
           width: 3000,
           height: 3000,
           pixelRatio: 1,
@@ -231,23 +236,44 @@ function App() {
           skipAutoScale: true
         });
 
-        // Restore original styles
-        squareRef.style.transform = originalTransform;
-        squareRef.style.position = originalPosition;
-        squareRef.style.left = originalLeft;
-        squareRef.style.top = originalTop;
+        // Clear the temporary container
+        tempContainer.innerHTML = '';
 
-        // Create thumbnail (400x400)
-        const hdImg = new window.Image();
-        hdImg.src = hdDataUrl;
-        await new Promise(resolve => { hdImg.onload = resolve; });
-        const canvas = document.createElement('canvas');
-        canvas.width = 400;
-        canvas.height = 400;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) throw new Error('Failed to get 2D context for thumbnail canvas');
-        ctx.drawImage(hdImg, 0, 0, 3000, 3000, 0, 0, 400, 400);
-        const thumbnailDataUrl = canvas.toDataURL('image/png');
+        // Create a wrapper for thumbnail that will handle the scaling
+        const thumbnailWrapper = document.createElement('div');
+        thumbnailWrapper.style.width = '400px';
+        thumbnailWrapper.style.height = '400px';
+        thumbnailWrapper.style.position = 'relative';
+        thumbnailWrapper.style.overflow = 'hidden';
+        thumbnailWrapper.style.display = 'flex';
+        thumbnailWrapper.style.alignItems = 'center';
+        thumbnailWrapper.style.justifyContent = 'center';
+        tempContainer.appendChild(thumbnailWrapper);
+
+        // Clone for thumbnail and scale everything
+        const thumbnailClone = squareRef.cloneNode(true) as HTMLElement;
+        thumbnailClone.style.position = 'absolute';
+        thumbnailClone.style.width = '3000px';
+        thumbnailClone.style.height = '3000px';
+        thumbnailClone.style.transform = 'scale(0.133333)'; // 400/3000
+        thumbnailClone.style.transformOrigin = 'center center';
+        thumbnailClone.style.left = '50%';
+        thumbnailClone.style.top = '50%';
+        thumbnailClone.style.marginLeft = '-1500px'; // -width/2
+        thumbnailClone.style.marginTop = '-1500px';  // -height/2
+        thumbnailWrapper.appendChild(thumbnailClone);
+
+        // Generate thumbnail version (400x400)
+        const thumbnailDataUrl = await toPng(thumbnailWrapper, {
+          width: 400,
+          height: 400,
+          pixelRatio: 1,
+          quality: 1,
+          skipAutoScale: true
+        });
+
+        // Remove the temporary container
+        document.body.removeChild(tempContainer);
 
         // Convert base64 to blob
         const hdBlob = await fetch(hdDataUrl).then(res => res.blob());
