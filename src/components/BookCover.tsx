@@ -36,7 +36,7 @@ export function BookCover({ className, backgroundColor, title, author }: BookCov
           className="text-[328px] leading-[383px] tracking-tight text-center block"
           style={{ fontFamily: "Fraunces", fontWeight: 300 }}
         >
-          by {author}
+          von {author}
         </span>
       </div>
 
@@ -59,7 +59,7 @@ export function BookCover({ className, backgroundColor, title, author }: BookCov
               className="text-[105px] text-center"
               style={{ fontFamily: "DM Mono" }}
             >
-              BOOK
+              BUCH
             </span>
           </div>
         </div>
