@@ -5,6 +5,7 @@ import { colorCombinations } from "@/constants/colors";
 import { BookCover } from "@/components/BookCover";
 import { PanelRightOpen, PanelRightClose } from "lucide-react";
 import { Textarea } from "./components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import JSZip from "jszip";
 
 interface Book {
@@ -180,6 +181,7 @@ function App() {
   const squareRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const [colorIndex, setColorIndex] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [language, setLanguage] = useState<'english' | 'deutsch'>('english');
   const [booksJson, setBooksJson] = useState<string>(INITIAL_BOOKS_JSON);
   const [lastValidBooks, setLastValidBooks] = useState<Book[]>(JSON.parse(INITIAL_BOOKS_JSON));
   const [jsonError, setJsonError] = useState<string | null>(null);
@@ -350,6 +352,20 @@ function App() {
         }`}
       >
         <div className="flex flex-col h-full">
+          <div className="p-4 border-b">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Language
+            </label>
+            <Select value={language} onValueChange={(value) => setLanguage(value as 'english' | 'deutsch')}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select language" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="english">English</SelectItem>
+                <SelectItem value="deutsch">Deutsch</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
           {jsonError && (
             <div className="p-2 bg-red-100 text-red-700 text-sm">
               {jsonError}
@@ -389,6 +405,7 @@ function App() {
                   backgroundColor={getBgColor(index)}
                   title={book.title}
                   author={book.author}
+                  language={language}
                 />
               </div>
             </div>
