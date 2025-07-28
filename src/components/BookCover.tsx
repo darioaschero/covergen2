@@ -9,9 +9,13 @@ interface BookCoverProps {
   backgroundColor: string;
   title: string;
   author: string;
+  language: 'english' | 'deutsch';
 }
 
-export function BookCover({ className, backgroundColor, title, author }: BookCoverProps) {
+export function BookCover({ className, backgroundColor, title, author, language }: BookCoverProps) {
+  const byText = language === 'english' ? 'by' : 'von';
+  const bookText = language === 'english' ? 'BOOK' : 'BUCH';
+
   return (
     <div className={`h-full flex flex-col px-20 ${className}`}>
       {/* Publisher - Top */}
@@ -36,7 +40,7 @@ export function BookCover({ className, backgroundColor, title, author }: BookCov
           className="text-[328px] leading-[383px] tracking-tight text-center block"
           style={{ fontFamily: "Fraunces", fontWeight: 300 }}
         >
-          von {author}
+          {byText} {author}
         </span>
       </div>
 
@@ -59,7 +63,7 @@ export function BookCover({ className, backgroundColor, title, author }: BookCov
               className="text-[105px] text-center"
               style={{ fontFamily: "DM Mono" }}
             >
-              BUCH
+              {bookText}
             </span>
           </div>
         </div>
