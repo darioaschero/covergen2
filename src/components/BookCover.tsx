@@ -3,6 +3,7 @@ import "@fontsource/dm-mono";
 import "@fontsource/fraunces/300.css";
 import "@fontsource/fraunces/600.css";
 import "@fontsource/fraunces/700.css";
+import { Logo } from "./Logo";
 
 interface BookCoverProps {
   className?: string;
@@ -18,34 +19,8 @@ export function BookCover({ className, backgroundColor, title, author, language 
 
   return (
     <div className={`h-full flex flex-col px-20 ${className}`}>
-      {/* Publisher - Top */}
-      <div className="flex-1 flex items-start justify-center pt-24">
-        <div 
-          className="text-[150px] tracking-tight text-center"
-          style={{ fontFamily: "Fraunces", fontWeight: 600 }}
-        >
-          900s
-        </div>
-      </div>
-
-      {/* Title and Author - Middle */}
-      <div className="flex flex-col items-center justify-center h-full">
-        <h1 
-          className="text-[328px] leading-[383px] tracking-tight text-center"
-          style={{ fontFamily: "Fraunces", fontWeight: 700 }}
-        >
-          {title}
-        </h1>
-        <span 
-          className="text-[328px] leading-[383px] tracking-tight text-center block"
-          style={{ fontFamily: "Fraunces", fontWeight: 300 }}
-        >
-          {byText} {author}
-        </span>
-      </div>
-
-      {/* Book Type - Bottom */}
-      <div className="flex-1 flex items-end justify-center pb-32">
+      {/* Book Icon - Top */}
+      <div className="flex-1 flex items-start justify-center pt-32">
         <div className="flex items-center">
           <div 
             className="w-[165px] h-[165px] rounded-full flex items-center justify-center bg-current"
@@ -67,6 +42,27 @@ export function BookCover({ className, backgroundColor, title, author, language 
             </span>
           </div>
         </div>
+      </div>
+
+      {/* Title and Author - Middle */}
+      <div className="flex flex-col items-center justify-center h-full">
+        <h1 
+          className="text-[328px] leading-[383px] tracking-tight text-center"
+          style={{ fontFamily: "Fraunces", fontWeight: 700 }}
+        >
+          {title}
+        </h1>
+        <span 
+          className="text-[328px] leading-[383px] tracking-tight text-center block"
+          style={{ fontFamily: "Fraunces", fontWeight: 300 }}
+        >
+          {byText} {author}
+        </span>
+      </div>
+
+      {/* Publisher - Bottom */}
+      <div className="flex-1 flex items-end justify-center pb-24">
+        <Logo size={300} />
       </div>
     </div>
   );
