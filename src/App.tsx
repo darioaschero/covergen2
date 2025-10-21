@@ -339,7 +339,6 @@ function App() {
   const [booksJson, setBooksJson] = useState<string>(INITIAL_BOOKS_JSON);
   const [biographiesJson, setBiographiesJson] = useState<string>(INITIAL_BIOGRAPHIES_JSON);
   const [lastValidBooks, setLastValidBooks] = useState<Book[]>(JSON.parse(INITIAL_BOOKS_JSON));
-  const [lastValidBiographies, setLastValidBiographies] = useState<Book[]>(JSON.parse(INITIAL_BIOGRAPHIES_JSON));
   const [jsonError, setJsonError] = useState<string | null>(null);
   const [books, setBooks] = useState<Book[]>(lastValidBooks);
 
@@ -351,8 +350,6 @@ function App() {
         setBooks(parsedData);
         if (type === 'book') {
           setLastValidBooks(parsedData);
-        } else {
-          setLastValidBiographies(parsedData);
         }
         setJsonError(null);
       } else {
