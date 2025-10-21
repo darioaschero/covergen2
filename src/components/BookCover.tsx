@@ -3,7 +3,6 @@ import "@fontsource/dm-mono";
 import "@fontsource/fraunces/300.css";
 import "@fontsource/fraunces/600.css";
 import "@fontsource/fraunces/700.css";
-import { Logo } from "./Logo";
 
 interface BookCoverProps {
   className?: string;
@@ -78,27 +77,6 @@ export function BookCover({ className, backgroundColor, title, author, subtitle,
             </span>
           </div>
         </div>
-      </div>
-
-      {/* Title and Author - Middle */}
-      <div className="flex flex-col items-center justify-center h-full">
-        <h1 
-          className="text-[328px] leading-[383px] tracking-tight text-center"
-          style={{ fontFamily: "Fraunces", fontWeight: 700 }}
-        >
-          {title}
-        </h1>
-        <span 
-          className="text-[328px] leading-[383px] tracking-tight text-center block"
-          style={{ fontFamily: "Fraunces", fontWeight: 300 }}
-        >
-          {byText} {author}
-        </span>
-      </div>
-
-      {/* Publisher - Bottom */}
-      <div className="flex-1 flex items-end justify-center pb-24">
-        <Logo size={300} />
       </div>
     </div>
   );
