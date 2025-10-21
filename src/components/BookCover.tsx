@@ -1,4 +1,4 @@
-import { BookOpen } from "lucide-react";
+import { BookOpen, User } from "lucide-react";
 import "@fontsource/dm-mono";
 import "@fontsource/fraunces/300.css";
 import "@fontsource/fraunces/600.css";
@@ -9,12 +9,15 @@ interface BookCoverProps {
   backgroundColor: string;
   title: string;
   author: string;
+  subtitle: string;
   language: 'english' | 'deutsch';
+  type: 'book' | 'biography';
 }
 
-export function BookCover({ className, backgroundColor, title, author, language }: BookCoverProps) {
+export function BookCover({ className, backgroundColor, title, author, subtitle, language, type }: BookCoverProps) {
   const byText = language === 'english' ? 'by' : 'von';
   const bookText = language === 'english' ? 'BOOK' : 'BUCH';
+  const biographyText = language === 'english' ? 'BIOGRAPHY' : 'BIOGRAPHIE';
 
   return (
     <div className={`h-full flex flex-col px-20 ${className}`}>
@@ -40,7 +43,7 @@ export function BookCover({ className, backgroundColor, title, author, language 
           className="text-[328px] leading-[383px] tracking-tight text-center block"
           style={{ fontFamily: "Fraunces", fontWeight: 300 }}
         >
-          {byText} {author}
+          {type === 'book' ? `${byText} ${author}` : subtitle}
         </span>
       </div>
 
@@ -50,10 +53,17 @@ export function BookCover({ className, backgroundColor, title, author, language 
           <div 
             className="w-[165px] h-[165px] rounded-full flex items-center justify-center bg-current"
           >
-            <BookOpen 
-              size={105} 
-              style={{ color: backgroundColor }}
-            />
+            {type === 'book' ? (
+              <BookOpen 
+                size={105} 
+                style={{ color: backgroundColor }}
+              />
+            ) : (
+              <User 
+                size={105} 
+                style={{ color: backgroundColor }}
+              />
+            )}
           </div>
           <div 
             className="h-[165px] flex items-center border-[6px] rounded-full px-12 -ml-6 z-10"
@@ -63,7 +73,7 @@ export function BookCover({ className, backgroundColor, title, author, language 
               className="text-[105px] text-center"
               style={{ fontFamily: "DM Mono" }}
             >
-              {bookText}
+              {type === 'book' ? bookText : biographyText}
             </span>
           </div>
         </div>
