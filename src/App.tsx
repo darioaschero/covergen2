@@ -177,30 +177,188 @@ const INITIAL_BOOKS_JSON = `[
   }
 ]`;
 
+const INITIAL_BIOGRAPHIES_JSON = `[
+  {
+    "id": "elon-musk-01",
+    "title": "Elon Musk",
+    "author": "Biography Team",
+    "subtitle": "Visionary Entrepreneur and Innovator",
+    "coverUrl": "/storage/elon-musk/cover.png",
+    "audioUrl": "/storage/elon-musk/audio.mp3",
+    "lang": "en",
+    "durationSec": 780,
+    "publishedAt": "2025-01-10T08:00:00Z",
+    "categories": ["technology", "entrepreneurship"],
+    "description": "Elon Musk is the CEO of Tesla and SpaceX, known for revolutionizing electric vehicles, private space travel, and pushing the boundaries of innovation.",
+    "visualUrl": "/storage/elon-musk/visualisation.png",
+    "transcript": "/storage/elon-musk/transcript.json"
+  },
+  {
+    "id": "marie-curie-02",
+    "title": "Marie Curie",
+    "author": "Biography Team",
+    "subtitle": "Pioneer of Radioactivity",
+    "coverUrl": "/storage/marie-curie/cover.png",
+    "audioUrl": "/storage/marie-curie/audio.mp3",
+    "lang": "en",
+    "durationSec": 732,
+    "publishedAt": "2025-02-15T08:00:00Z",
+    "categories": ["science", "history"],
+    "description": "Marie Curie was a physicist and chemist who discovered polonium and radium, becoming the first person to win Nobel Prizes in two different sciences.",
+    "visualUrl": "/storage/marie-curie/visualisation.png",
+    "transcript": "/storage/marie-curie/transcript.json"
+  },
+  {
+    "id": "martin-luther-king-03",
+    "title": "Martin Luther King Jr.",
+    "author": "Biography Team",
+    "subtitle": "Champion of Civil Rights",
+    "coverUrl": "/storage/martin-luther-king/cover.png",
+    "audioUrl": "/storage/martin-luther-king/audio.mp3",
+    "lang": "en",
+    "durationSec": 755,
+    "publishedAt": "2025-03-10T08:00:00Z",
+    "categories": ["history", "leadership"],
+    "description": "Martin Luther King Jr. was a Baptist minister and civil rights leader whose vision of equality and nonviolence transformed America's struggle for justice.",
+    "visualUrl": "/storage/martin-luther-king/visualisation.png",
+    "transcript": "/storage/martin-luther-king/transcript.json"
+  },
+  {
+    "id": "steve-jobs-04",
+    "title": "Steve Jobs",
+    "author": "Biography Team",
+    "subtitle": "Co-founder of Apple",
+    "coverUrl": "/storage/steve-jobs/cover.png",
+    "audioUrl": "/storage/steve-jobs/audio.mp3",
+    "lang": "en",
+    "durationSec": 768,
+    "publishedAt": "2025-04-22T08:00:00Z",
+    "categories": ["technology", "business"],
+    "description": "Steve Jobs co-founded Apple Inc. and revolutionized personal computing, music, and mobile technology through his relentless pursuit of excellence.",
+    "visualUrl": "/storage/steve-jobs/visualisation.png",
+    "transcript": "/storage/steve-jobs/transcript.json"
+  },
+  {
+    "id": "malala-yousafzai-05",
+    "title": "Malala Yousafzai",
+    "author": "Biography Team",
+    "subtitle": "Voice for Education and Equality",
+    "coverUrl": "/storage/malala-yousafzai/cover.png",
+    "audioUrl": "/storage/malala-yousafzai/audio.mp3",
+    "lang": "en",
+    "durationSec": 721,
+    "publishedAt": "2025-05-18T08:00:00Z",
+    "categories": ["activism", "education"],
+    "description": "Malala Yousafzai is a Pakistani activist and Nobel Peace Prize laureate who advocates for girls' education and human rights worldwide.",
+    "visualUrl": "/storage/malala-yousafzai/visualisation.png",
+    "transcript": "/storage/malala-yousafzai/transcript.json"
+  },
+  {
+    "id": "albert-einstein-06",
+    "title": "Albert Einstein",
+    "author": "Biography Team",
+    "subtitle": "Genius of Modern Physics",
+    "coverUrl": "/storage/albert-einstein/cover.png",
+    "audioUrl": "/storage/albert-einstein/audio.mp3",
+    "lang": "en",
+    "durationSec": 812,
+    "publishedAt": "2025-06-25T08:00:00Z",
+    "categories": ["science", "philosophy"],
+    "description": "Albert Einstein developed the theory of relativity and reshaped our understanding of time, space, and energy, influencing modern physics forever.",
+    "visualUrl": "/storage/albert-einstein/visualisation.png",
+    "transcript": "/storage/albert-einstein/transcript.json"
+  },
+  {
+    "id": "nelson-mandela-07",
+    "title": "Nelson Mandela",
+    "author": "Biography Team",
+    "subtitle": "Symbol of Freedom and Reconciliation",
+    "coverUrl": "/storage/nelson-mandela/cover.png",
+    "audioUrl": "/storage/nelson-mandela/audio.mp3",
+    "lang": "en",
+    "durationSec": 790,
+    "publishedAt": "2025-07-29T08:00:00Z",
+    "categories": ["politics", "leadership"],
+    "description": "Nelson Mandela was a South African anti-apartheid revolutionary and the country's first Black president, renowned for his fight for equality and peace.",
+    "visualUrl": "/storage/nelson-mandela/visualisation.png",
+    "transcript": "/storage/nelson-mandela/transcript.json"
+  },
+  {
+    "id": "ada-lovelace-08",
+    "title": "Ada Lovelace",
+    "author": "Biography Team",
+    "subtitle": "The First Computer Programmer",
+    "coverUrl": "/storage/ada-lovelace/cover.png",
+    "audioUrl": "/storage/ada-lovelace/audio.mp3",
+    "lang": "en",
+    "durationSec": 703,
+    "publishedAt": "2025-08-12T08:00:00Z",
+    "categories": ["technology", "history"],
+    "description": "Ada Lovelace was a 19th-century mathematician who wrote the first algorithm intended for a machine, earning her the title of the world's first programmer.",
+    "visualUrl": "/storage/ada-lovelace/visualisation.png",
+    "transcript": "/storage/ada-lovelace/transcript.json"
+  },
+  {
+    "id": "leonardo-da-vinci-09",
+    "title": "Leonardo da Vinci",
+    "author": "Biography Team",
+    "subtitle": "The Renaissance Genius",
+    "coverUrl": "/storage/leonardo-da-vinci/cover.png",
+    "audioUrl": "/storage/leonardo-da-vinci/audio.mp3",
+    "lang": "en",
+    "durationSec": 829,
+    "publishedAt": "2025-09-20T08:00:00Z",
+    "categories": ["art", "science"],
+    "description": "Leonardo da Vinci was an Italian polymath whose brilliance spanned art, science, and invention, embodying the spirit of the Renaissance.",
+    "visualUrl": "/storage/leonardo-da-vinci/visualisation.png",
+    "transcript": "/storage/leonardo-da-vinci/transcript.json"
+  },
+  {
+    "id": "oprah-winfrey-10",
+    "title": "Oprah Winfrey",
+    "author": "Biography Team",
+    "subtitle": "Media Mogul and Philanthropist",
+    "coverUrl": "/storage/oprah-winfrey/cover.png",
+    "audioUrl": "/storage/oprah-winfrey/audio.mp3",
+    "lang": "en",
+    "durationSec": 765,
+    "publishedAt": "2025-10-25T08:00:00Z",
+    "categories": ["media", "inspiration"],
+    "description": "Oprah Winfrey rose from humble beginnings to become one of the most influential media figures and philanthropists in modern history.",
+    "visualUrl": "/storage/oprah-winfrey/visualisation.png",
+    "transcript": "/storage/oprah-winfrey/transcript.json"
+  }
+]`;
+
 function App() {
   const squareRefs = useRef<Map<string, HTMLDivElement>>(new Map());
   const [colorIndex, setColorIndex] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [language, setLanguage] = useState<'english' | 'deutsch'>('english');
+  const [type, setType] = useState<'book' | 'biography'>('book');
   const [booksJson, setBooksJson] = useState<string>(INITIAL_BOOKS_JSON);
+  const [biographiesJson, setBiographiesJson] = useState<string>(INITIAL_BIOGRAPHIES_JSON);
   const [lastValidBooks, setLastValidBooks] = useState<Book[]>(JSON.parse(INITIAL_BOOKS_JSON));
   const [jsonError, setJsonError] = useState<string | null>(null);
   const [books, setBooks] = useState<Book[]>(lastValidBooks);
 
   useEffect(() => {
+    const currentJson = type === 'book' ? booksJson : biographiesJson;
     try {
-      const parsedBooks = JSON.parse(booksJson);
-      if (Array.isArray(parsedBooks)) {
-        setBooks(parsedBooks);
-        setLastValidBooks(parsedBooks);
+      const parsedData = JSON.parse(currentJson);
+      if (Array.isArray(parsedData)) {
+        setBooks(parsedData);
+        if (type === 'book') {
+          setLastValidBooks(parsedData);
+        }
         setJsonError(null);
       } else {
-        setJsonError("JSON must be an array of books");
+        setJsonError("JSON must be an array");
       }
     } catch (err) {
       setJsonError("Invalid JSON format");
     }
-  }, [booksJson]);
+  }, [booksJson, biographiesJson, type]);
 
   const handleExport = async () => {
     try {
@@ -352,30 +510,56 @@ function App() {
         }`}
       >
         <div className="flex flex-col h-full">
-          <div className="p-4 border-b">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Language
-            </label>
-            <Select value={language} onValueChange={(value) => setLanguage(value as 'english' | 'deutsch')}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select language" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="english">English</SelectItem>
-                <SelectItem value="deutsch">Deutsch</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="p-4 border-b space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Language
+              </label>
+              <Select value={language} onValueChange={(value) => setLanguage(value as 'english' | 'deutsch')}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select language" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="english">English</SelectItem>
+                  <SelectItem value="deutsch">Deutsch</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Type
+              </label>
+              <Select value={type} onValueChange={(value) => setType(value as 'book' | 'biography')}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="book">Book</SelectItem>
+                  <SelectItem value="biography">Biography</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
           {jsonError && (
             <div className="p-2 bg-red-100 text-red-700 text-sm">
               {jsonError}
             </div>
           )}
-          <Textarea
-            value={booksJson}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setBooksJson(e.target.value)}
-            className="w-full flex-1 font-mono text-xs whitespace-pre"
-          />
+          {type === 'book' ? (
+            <Textarea
+              value={booksJson}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setBooksJson(e.target.value)}
+              className="w-full flex-1 font-mono text-xs whitespace-pre"
+              placeholder="Enter book data JSON..."
+            />
+          ) : (
+            <Textarea
+              value={biographiesJson}
+              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setBiographiesJson(e.target.value)}
+              className="w-full flex-1 font-mono text-xs whitespace-pre"
+              placeholder="Enter biography data JSON..."
+            />
+          )}
         </div>
       </div>
 
@@ -405,7 +589,9 @@ function App() {
                   backgroundColor={getBgColor(index)}
                   title={book.title}
                   author={book.author}
+                  subtitle={book.subtitle}
                   language={language}
+                  type={type}
                 />
               </div>
             </div>
